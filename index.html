@@ -1,480 +1,277 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
-<head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Hospital Assistant</title>
-    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css' rel='stylesheet'>
-    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="app.css"> -->
+        <link rel="icon" href="./Logo-BK.ico">
+        <title>Document</title>
+    </head>
 
-        html {
-            height: 100%
-        }
-
-        p {
-            color: grey
-        }
-
-        #heading {
-            text-transform: uppercase;
-            color: #673AB7;
-            font-weight: normal
-        }
-
-        #heading {
-            text-transform: uppercase;
-            color: #673AB7;
-            font-weight: normal
-        }
-
-        #msform {
-            text-align: center;
-            position: relative;
-            margin-top: 20px
-        }
-
-        #msform fieldset {
-            background: white;
-            border: 0 none;
-            border-radius: 0.5rem;
-            box-sizing: border-box;
-            width: 100%;
-            margin: 0;
-            padding-bottom: 20px;
-            position: relative
-        }
-
-        .form-card {
-            text-align: left
-        }
-
-        #msform fieldset:not(:first-of-type) {
-            display: none
-        }
-
-        #msform input,
-        #msform textarea {
-            padding: 8px 15px 8px 15px;
-            border: 1px solid #ccc;
-            border-radius: 0px;
-            margin-bottom: 25px;
-            margin-top: 2px;
-            width: 100%;
-            box-sizing: border-box;
-            font-family: 'Courier New', Courier, monospace;
-            color: #2C3E50;
-            background-color: #ECEFF1;
-            font-size: 16px;
-            letter-spacing: 1px
-        }
-
-        #msform input:focus,
-        #msform textarea:focus {
-            -moz-box-shadow: none !important;
-            -webkit-box-shadow: none !important;
-            box-shadow: none !important;
-            border: 1px solid #673AB7;
-            outline-width: 0
-        }
-
-        #msform .action-button {
-            width: 100px;
-            background: #673AB7;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 0px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 0px 10px 5px;
-            float: right
-        }
-
-        #msform .finish-button {
-            width: 400px;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 0px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 20px auto;
-        }
-
-        #msform .action-button:hover,
-        #msform .action-button:focus {
-            background-color: #311B92
-        }
-
-        #msform .action-button-previous {
-            width: 100px;
-            background: #616161;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 0px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 5px 10px 0px;
-            float: right
-        }
-
-        #msform .action-button-previous:hover,
-        #msform .action-button-previous:focus {
-            background-color: #000000
-        }
-
-        .card {
-            z-index: 0;
-            border: none;
-            position: relative
-        }
-
-        .fs-title {
-            font-size: 25px;
-            color: #673AB7;
-            margin-bottom: 15px;
-            font-weight: normal;
-            text-align: left
-        }
-
-        .purple-text {
-            color: #673AB7;
-            font-weight: normal
-        }
-
-        .steps {
-            font-size: 25px;
-            color: gray;
-            margin-bottom: 10px;
-            font-weight: normal;
-            text-align: right
-        }
-
-        .fieldlabels {
-            color: gray;
-            text-align: left
-        }
-
-        #progressbar {
-            margin-bottom: 30px;
-            overflow: hidden;
-            color: lightgrey
-        }
-
-        #progressbar .active {
-            color: #673AB7
-        }
-
-        #progressbar li {
-            list-style-type: none;
-            font-size: 15px;
-            width: 25%;
-            float: left;
-            position: relative;
-            font-weight: 400
-        }
-
-        #progressbar #account:before {
-            font-family: FontAwesome;
-            content: "\f13e"
-        }
-
-        #progressbar #personal:before {
-            font-family: FontAwesome;
-            content: "\f007"
-        }
-
-        #progressbar #medical:before {
-            font-family: FontAwesome;
-            content: "\f030"
-        }
-
-        #progressbar #confirm:before {
-            font-family: FontAwesome;
-            content: "\f00c"
-        }
-
-        #progressbar li:before {
-            width: 50px;
-            height: 50px;
-            line-height: 45px;
-            display: block;
-            font-size: 20px;
-            color: #ffffff;
-            background: lightgray;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            padding: 2px
-        }
-
-        #progressbar li:after {
-            content: '';
-            width: 100%;
-            height: 2px;
-            background: lightgray;
-            position: absolute;
-            left: 0;
-            top: 25px;
-            z-index: -1
-        }
-
-        #progressbar li.active:before,
-        #progressbar li.active:after {
-            background: #673AB7
-        }
-
-        .progress {
-            height: 20px
-        }
-
-        .progress-bar {
-            background-color: #673AB7
-        }
-
-        .fit-image {
-            width: 100%;
-            object-fit: cover
-        }
-
-        .btn-primary {
-            background-color: #673AB7;
-            border-color: #673AB7;
-        }
-
-        .btn-primary:hover {
-            background-color: #58329b;
-            border-color: #58329b;
-        }
-    </style>
-</head>
-
-<body oncontextmenu='return true' class='snippet-body'>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
-                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                    <h2 id="heading">Welcome to Omni Healthcare System</h2>
-                    <p>Please follow the instructions</p>
-                    <form id="msform">
-                        <!-- progressbar -->
-                        <ul id="progressbar">
-                            <li class="active" id="account"><strong>Checkin</strong></li>
-                            <li id="personal"><strong>Hồ sơ</strong></li>
-                            <li id="medical"><strong>Khai báo y tế</strong></li>
-                            <li id="confirm"><strong>Kết thúc</strong></li>
-                        </ul>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div> <br> <!-- fieldsets -->
-                        <fieldset>
-                            <div class="form-card">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <h2 class="fs-title">Chọn để tiếp tục</h2>
-                                    </div>
-                                    <div class="col-5">
-                                        <h2 class="steps">Bước 1 - 4</h2>
-                                    </div>
-
-                                </div>
-
+    <body>
+        <nav class="navbar sticky-top navbar-dark navbar-expand-md bg-primary">
+            <div class="container">
+                <a href="#" class="navbar-brand">
+                    <img src="Logo-BK.ico" width="20%" alt="Logo-BK">
+                    <div class="d-inline font-monospace text-white">tiviluson</div>
+                </a>
+                <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"></button> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- <div class="collapse navbar-collapse" id="menu"> -->
+                <div class="offcanvas offcanvas-start bg-primary" tabindex="-1" id="menu"
+                    aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <img src="/Section_12_Bootstrap/Form/Logo-BK.ico" width="20%" alt="Logo-BK">
+                        <h5 class="offcanvas-title font-monospace text-white" id="offcanvasNavbarLabel">tiviluson</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="navbar-nav">
+                            <a href="#" class="nav-link">Home</a>
+                            <a href="#" class="nav-link active">Form</a>
+                            <a href="#" class="nav-link">Contact</a>
+                            <a href="#" class="nav-link disabled">Beta</a>
+                        </div>
+                        <div class="navbar-nav">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                    id="lang">Language</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#" class="dropdown-item">Tiếng Việt</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="dropdown-item">English</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="dropdown-item">汉语</a>
+                                    </li>
+                                </ul>
                             </div>
-                            <button type="button" class="btn btn-primary btn-lg btn-block next">Đăng ký khám
-                                bệnh</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block next">Tái
-                                khám</button>
-                        </fieldset>
-                        <fieldset>
-                            <div class="form-card">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <h2 class="fs-title">Nhập thông tin</h2>
-                                    </div>
-                                    <div class="col-5">
-                                        <h2 class="steps">Bước 2 - 4</h2>
-                                    </div>
-                                </div>
-                                <label class="fieldlabels">
-                                    Số điện thoại: *
-                                </label>
-                                <input type="tel" name="tel" placeholder="Sđt" />
-                                <label class="fieldlabels">
-                                    Họ và tên: *
-                                </label>
-                                <input type="text" name="name" placeholder="Họ và tên" />
-                                <label class="fieldlabels">
-                                    Địa chỉ: *
-                                </label>
-                                <input type="address" name="address" placeholder="Địa chỉ" />
-                                <label class="fieldlabels">
-                                    Mã OTP: *
-                                </label>
-                                <input type="text" name="otp" placeholder="OTP" />
-                            </div>
-                            <button type="button" name="next" class="next btn action-button">Tiếp tục</button>
-                            <button type="button" name="previous" class="previous btn action-button-previous">Trở
-                                về</button>
-                        </fieldset>
-                        <fieldset>
-                            <div class="form-card">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <h2 class="fs-title">Khai báo y tế
-                                        </h2>
-                                    </div>
-                                    <div class="col-5">
-                                        <h2 class="steps">Bước 3 - 4</h2>
-                                    </div>
-                                </div>
-                                <label class="fieldlabels">Truy cập <a
-                                        href="https://tokhaiyte.vn/">https://tokhaiyte.vn/</a> và tải tờ khai
-                                    y tế</label>
-
-                                <input type="file" name="pic" accept="image/* , .pdf">
-
-                                <label class="fieldlabels">Hoặc quét mã QR</label>
-                                <div></div>
-
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example" />
-                            </div>
-                            <button type="button" name="next" class="next btn action-button">Tiếp tục</button>
-                            <button type="button" name="previous" class="previous btn action-button-previous">Trở
-                                về</button>
-                        </fieldset>
-                        <fieldset>
-                            <div class="form-card">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <h2 class="fs-title">Hoàn thành</h2>
-                                    </div>
-                                    <div class="col-5">
-                                        <h2 class="steps">Bước 4 - 4</h2>
-                                    </div>
-                                </div> <br><br>
-                                <h2 class="purple-text text-center"><strong>MÃ HỒ SƠ</strong></h2> <br>
-                                <div class="row justify-content-center">
-                                    <div class="col-3"> <img
-                                            src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Example"
-                                            class="fit-image">
-                                    </div>
-                                </div> <br><br>
-                                <div class="row justify-content-center">
-                                    <div class="col-7 text-center">
-                                        <h5 class="purple-text text-center">Bạn đã Check-in thành công, vui lòng chọn
-                                        </h5>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-primary btn-lg btn-block finish-button next">Dẫn
-                                    tôi đến phòng bệnh</button>
-                                <button type="button" class="btn btn-secondary btn-lg btn-block finish-button next">Mở
-                                    bản đồ, tôi tự đi</button>
-                            </div>
-                        </fieldset>
-                    </form>
+                        </div>
+                        <form action="https://www.google.com/search" class="d-flex ms-auto">
+                            <input class="form-control me-2 d-inline" type="search" placeholder="Google it!"
+                                aria-label="Search" name="q">
+                            <button class="btn btn-success d-inline" type="submit">Search</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+        </nav>
+        <div class="container">
+            <h1 class="display-1 text-center text-primary m-3">Covid-19 Declaration Form</h1>
+            <form class="row needs-validation" novalidate action="#">
+                <div class="display-6 text-center text-secondary font-monospace text-capitalize">Personal
+                    information</div>
+                <div class="col-md-7 col-xl-4 mt-2">
+                    <label for="first-name" class="form-label">First name</label>
+                    <input type="text" class="form-control" name="fname" placeholder="Nhữ Hùng" required>
+                    <!-- <div class="form-text">Your first name should be at least 3 characters.</div> -->
+                    <div class="invalid-feedback">Please provide your first name</div>
+                    <div class="valid-feedback">Your first name is nice.</div>
+                </div>
+                <div class="col-md-5 col-xl-3 mt-2">
+                    <label for="lname" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="lname" placeholder="Huỳnh" required>
+                    <div class="invalid-feedback">Please provide your last name.</div>
+                    <div class="valid-feedback">This is a great last name.</div>
+                </div>
+                <div class="col-md-8 col-xl-2 mt-2">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" required>
+                    <div class="invalid-feedback">Please provide your Date of Birth.</div>
+                </div>
+                <div class="col-md-4 col-xl-3 mt-2">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select name="gender" id="gender" class="form-select" required>
+                        <option disabled selected>--Choose your gender--</option>
+                        <option value="m">Male</option>
+                        <option value="f">Female</option>
+                        <option value="l">Lesbian</option>
+                        <option value="g">Gay</option>
+                        <option value="b">Bisexual</option>
+                        <option value="p">Pansexual</option>
+                        <option value="a">Asexual</option>
+                        <option value="tm">Transgender (Male)</option>
+                        <option value="tf">Transgender (Female)</option>
+                        <option value="gf">Genderfluid</option>
+                        <option value="na">Prefer not to disclose</option>
+                    </select>
+                </div>
+
+
+                <!-- <div class="row mt-2"> -->
+                <label for="house-num" class="form-label mt-2">Address</label>
+                <div class="col-xl-4 col-md-4 mt-1">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <label for="house-num">House number</label>
+                        </span>
+                        <input type="text" class="form-control" placeholder="268" id="house-num" name="house-num">
+                    </div>
+                </div>
+                <div class="col-xl-8 col-md-8 mt-1">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <label for="street">Street</label>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Lý Thường Kiệt" id="street" name="street">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mt-1">
+                    <div class="input-group">
+                        <!-- <span class="input-group-text">Ward</span> -->
+                        <span class="input-group-text">
+                            <label for="ward">Ward</label>
+                        </span>
+                        <input type="text" class="form-control" placeholder="14" id="ward" name="ward">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-6 mt-1">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <label for="district">District</label>
+                        </span>
+                        <input type="text" class="form-control" placeholder="10" id="district" name="district">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12 mt-1">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <label for="city">City</label>
+                        </span>
+                        <select class="form-select" placeholder="Ho Chi Minh City" id="city" name="city">
+                            <option disabled selected>--Choose a city--</option>
+                            <option value="hcmc">Hồ Chí Minh City</option>
+                            <option value="hanoi">Hà Nội</option>
+                            <option value="danang">Đà Nẵng</option>
+                            <option value="nhatrang">Nha Trang</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- </div> -->
+
+                <div class="row justify-content-center page-divider">
+                    <div class="border border-bottom my-5 col-4"></div>
+                </div>
+                <div class="display-6 text-center text-secondary font-monospace text-capitalize">Vaccination history
+                </div>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor illum cupiditate iure corporis harum
+                voluptatem qui, dolorum repellat saepe quam quidem ut perferendis soluta deleniti nesciunt sint est
+                repudiandae aliquam quo. Et aliquam nemo necessitatibus vero quidem corporis a officiis laborum officia
+                atque eum dolores mollitia magni, dolorum deleniti fugiat alias, perferendis sapiente quae consectetur
+                corrupti consequuntur! Ipsa quo nesciunt, odit eos nobis porro esse molestias expedita magni mollitia
+                aliquam suscipit labore quidem dicta doloribus reprehenderit, eligendi itaque! Quidem laboriosam quod
+                sapiente molestias aliquid animi sit deleniti mollitia nemo esse sunt corrupti rerum cupiditate officiis
+                quibusdam dolor, optio architecto quae ullam beatae! Fugiat quia veritatis necessitatibus. Quidem
+                consequuntur itaque tenetur, repellendus architecto porro cupiditate molestiae sapiente ad assumenda
+                perferendis culpa, in, nihil commodi. Hic harum dignissimos, perspiciatis est illum voluptatem ipsum ex
+                sit! Exercitationem quis molestias, odio harum excepturi vitae commodi minima perferendis iusto itaque
+                labore earum doloremque, voluptatem maxime optio nesciunt quo veritatis. Quisquam odit autem modi
+                deserunt? Quaerat, repellendus excepturi? Iusto autem quia voluptate soluta accusantium dicta officiis
+                fugit, accusamus corporis sit illo libero tempore eveniet fuga voluptates? Temporibus accusantium
+                laboriosam eveniet placeat facere provident perspiciatis omnis aliquid molestias. Iure sunt natus dicta
+                quaerat impedit reprehenderit illum excepturi, deserunt itaque? Libero facilis sint magnam quis nisi
+                accusantium dolore tenetur aliquam iste, corporis qui, possimus quaerat harum sequi pariatur quam. Hic
+                repellat pariatur cupiditate aut, illum eaque fugit. Deserunt cupiditate facilis libero amet ducimus
+                voluptatibus sunt, id alias fuga laboriosam, assumenda perferendis. Numquam dignissimos et ullam
+                consequuntur consectetur laborum maxime voluptate vel voluptatem voluptates molestias, quasi vitae nam
+                placeat ad rem quae quibusdam suscipit animi voluptatum tenetur! Animi nesciunt nisi consequatur
+                quisquam tempora aut necessitatibus nulla ipsum. Libero dolores facere in eveniet, maiores sequi vel
+                minima quaerat at aut illo, ex laboriosam, molestias recusandae vero sit quibusdam suscipit? Quo ex ad
+                natus dicta, autem eligendi sapiente nostrum dolor ipsam ut? Voluptate earum unde sequi eos officia quo
+                dolore suscipit delectus nostrum itaque nihil repellat provident et dicta quos blanditiis, consequatur
+                rem? Totam debitis excepturi ea, tempore ut minima quis sit velit rerum quibusdam ipsum recusandae. Quae
+                odio illo eligendi at quas eaque repellat quibusdam tenetur autem aliquam ea aspernatur esse recusandae
+                dicta corrupti voluptatibus sit, quia sequi, magni provident adipisci eum pariatur vitae. In rerum
+                commodi vitae expedita dolore ad neque illo veritatis maiores vel minima alias, error nemo doloribus
+                odio tempora recusandae. Minima necessitatibus modi tenetur mollitia iste dolores quam cum consectetur
+                perspiciatis, optio expedita totam iure corporis nulla iusto tempora at voluptate, quo, corrupti
+                distinctio laboriosam inventore ex eligendi quidem. Dolore veritatis assumenda, maxime esse laboriosam
+                magni suscipit nemo perspiciatis ea debitis unde quasi dolorum repudiandae eveniet consectetur
+                distinctio est nobis. Ea alias fugiat ducimus nobis eum optio voluptatum ullam, a repellat ipsa, labore
+                repellendus earum doloremque commodi, minima at sapiente eligendi dolorem. Adipisci consequatur magni
+                eaque beatae a facilis vel cum odio vitae accusantium, aperiam ipsam perferendis dolor laboriosam quo
+                in, culpa aliquam nisi debitis, delectus alias eligendi consequuntur ad! Ipsa inventore dolor distinctio
+                praesentium dicta doloribus dolorum nemo placeat cum? Quasi consequuntur amet quidem totam reiciendis
+                quae modi nostrum in, soluta libero? Tempore, quaerat facere, eum odit nulla aliquid saepe id
+                accusantium, cum eveniet illo! Sit delectus blanditiis impedit perferendis aspernatur. Voluptatibus
+                alias, obcaecati eos dolorum eligendi quasi accusamus quod ad placeat necessitatibus repellat
+                consequuntur possimus assumenda reiciendis sunt perferendis rem est voluptatem libero fuga molestiae at.
+                Voluptatum corporis, voluptatibus excepturi repellendus eligendi nihil dolorum velit, non atque
+                voluptate nisi quia unde asperiores reiciendis ipsa assumenda dicta, accusamus harum provident eaque
+                nostrum! Dolorem ex iure neque incidunt animi nisi debitis dolore vitae! Iste iure est eos fugiat culpa
+                nulla voluptate odio nesciunt illum earum illo impedit ea in voluptatem quaerat cum aliquam eaque
+                aliquid obcaecati dolorem cupiditate ex, assumenda esse? Voluptatibus harum deserunt eaque dolorum quas
+                odit vero quos sunt quibusdam possimus molestias, impedit error ducimus quia numquam eius. Dicta cumque
+                repellendus perspiciatis voluptates pariatur doloribus eligendi enim rem, eius, similique mollitia.
+                Nostrum perspiciatis aperiam quod accusamus cumque excepturi, corporis molestiae eaque sapiente ad!
+                Dicta, dolorem dolor! Dolorum laudantium, doloribus consequatur earum eaque nostrum itaque, aut sequi
+                minus numquam enim illo corporis ipsa? Totam cupiditate provident possimus quaerat sit vero accusantium
+                tenetur adipisci dolorum quo odit eligendi et impedit obcaecati, voluptate repellat quos minus magni?
+                Ullam nostrum similique dicta tenetur et odit alias veritatis tempora numquam nisi. Impedit neque vel,
+                libero facilis modi illum consequatur, corporis ipsa aliquid nobis eos labore beatae nisi mollitia illo
+                exercitationem odio amet voluptate cumque eum quia accusantium, quis consectetur! Laudantium, omnis
+                asperiores. Odio pariatur explicabo quas quibusdam accusantium, odit dolorum ipsa eligendi, numquam
+                rerum iure harum, saepe consectetur quod fugiat est expedita dolore animi cumque veritatis enim? Eius
+                ipsum soluta modi optio expedita ullam aliquam maxime provident voluptas earum assumenda, ipsa
+                repellendus velit. Exercitationem libero doloribus voluptas sunt obcaecati quos illo nemo, aliquid nulla
+                enim aut aspernatur laboriosam voluptatum adipisci assumenda error maxime optio fugit qui vel nobis
+                illum commodi corporis ut! Soluta quis facilis necessitatibus eum, officia obcaecati saepe nemo earum
+                quidem ab! Impedit eos iure, ut qui atque, laudantium ipsam molestias dolores ullam dignissimos officiis
+                ipsum cumque repellendus reprehenderit distinctio non veritatis ducimus ex minima et magnam earum.
+                Corporis assumenda voluptatum mollitia inventore error quis voluptatem. Dolorum modi, repudiandae,
+                tenetur impedit pariatur nulla dolore veniam fugiat ad quia quibusdam quisquam commodi iste deleniti
+                neque, rerum provident quaerat expedita sit. Similique laudantium quis, porro quae repudiandae
+                voluptatem ullam rerum, quo nam corrupti aspernatur animi veniam sint ad tempore? Porro aliquam neque
+                deserunt nisi consequuntur! Similique, officiis, non alias unde reprehenderit aliquid necessitatibus
+                laborum dolore esse excepturi tenetur provident sint animi ducimus maiores amet tempora eaque sequi nam
+                quos blanditiis exercitationem a recusandae? Minima, corrupti soluta. Reprehenderit facilis in eligendi,
+                laborum voluptate perspiciatis vero deserunt eaque distinctio rem, aperiam dolor aspernatur praesentium
+                alias quo, labore quaerat mollitia iusto explicabo magnam earum ipsa! Sint eius deleniti pariatur illo
+                mollitia dolore, quia consequuntur. Voluptatem iusto quasi nemo voluptate magni quis at nobis, sequi,
+                vitae iure explicabo ab accusamus atque ullam? Numquam.
+                <div class="row justify-content-center page-divider">
+                    <div class="border border-bottom my-5 col-4"></div>
+                </div>
+                <div class="display-6 text-center text-secondary font-monospace text-capitalize">Symptom history</div>
+                <div class="row justify-content-center page-divider">
+                    <div class="border border-bottom my-5 col-4"></div>
+                </div>
+                <div class="d-flex my-3 justify-content-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                </div>
+            </form>
+            <!-- <div class="d-flex justify-content-center">
+                <div class="bg-danger" style="width: 150px;">Something</div>
+                <div class="bg-info text-center" style="width: 200px;">Something</div>
+                <div class="bg-danger" style="width: 150px;">Something</div>
+            </div> -->
+            <section>
+                <model-viewer alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and
+                    Space Museum" src="https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb" ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    environment-image="https://modelviewer.dev/shared-assets/environments/moon_1k.hdr"
+                    poster="https://modelviewer.dev/shared-assets/models/NeilArmstrong.webp" seamless-poster
+                    shadow-intensity="1" class="col-12" camera-controls>
+                </model-viewer>
+            </section>
         </div>
-    </div>
-    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'>
-    </script>
-    <script type='text/javascript'>
-        $(document).ready(function () {
+        <!-- Use it like any other HTML element -->
 
-            var current_fs, next_fs, previous_fs; //fieldsets
-            var opacity;
-            var current = 1;
-            var steps = $("fieldset").length;
-
-            setProgressBar(current);
-
-            $(".next").click(function () {
-
-                current_fs = $(this).parent();
-                next_fs = $(this).parent().next();
-
-                console.log(current_fs)
-                console.log(next_fs)
-
-                //Add Class Active
-                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-                //show the next fieldset
-                next_fs.show();
-                //hide the current fieldset with style
-                current_fs.animate({
-                    opacity: 0
-                }, {
-                    step: function (now) {
-                        // for making fielset appear animation
-                        opacity = 1 - now;
-
-                        current_fs.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        next_fs.css({
-                            'opacity': opacity
-                        });
-                    },
-                    duration: 500
-                });
-                setProgressBar(++current);
-            });
-
-            $(".previous").click(function () {
-
-                current_fs = $(this).parent();
-                previous_fs = $(this).parent().prev();
-
-                //Remove class active
-                $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-                //show the previous fieldset
-                previous_fs.show();
-
-                //hide the current fieldset with style
-                current_fs.animate({
-                    opacity: 0
-                }, {
-                    step: function (now) {
-                        // for making fielset appear animation
-                        opacity = 1 - now;
-
-                        current_fs.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        previous_fs.css({
-                            'opacity': opacity
-                        });
-                    },
-                    duration: 500
-                });
-                setProgressBar(--current);
-            });
-
-            function setProgressBar(curStep) {
-                var percent = parseFloat(100 / steps) * curStep;
-                percent = percent.toFixed();
-                $(".progress-bar")
-                    .css("width", percent + "%")
-            }
-
-            $(".submit").click(function () {
-                return false;
-            })
-
-        });
-    </script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+        <script src="no-invalid-submission.js"></script>
+        <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    </body>
 
 </html>
